@@ -1,0 +1,16 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+
+  <f:entry title="${%Files to scan}" field="includePattern"
+     description="${%description.files('http://ant.apache.org/manual/Types/fileset.html')}">
+    <f:textbox name="jslint.includePattern" />
+  </f:entry>
+
+  <f:entry title="${%Files to exclude}" field="excludePattern"
+     description="${%description.exclude.files('http://ant.apache.org/manual/Types/fileset.html')}">
+    <f:textbox name="jslint.excludePattern"/>
+  </f:entry>
+
+  <f:entry title="Log file" field="logfile">
+    <f:textbox name="jslint.logfile" />
+  </f:entry>
+</j:jelly>

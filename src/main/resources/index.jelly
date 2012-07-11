@@ -1,0 +1,12 @@
+<div>
+  <p><a href="http://www.jslint.com/">JSLint</a> plugin that allows you to run a sensible subset of jslint rules against
+  your project. You can include and exclude files and specify an output file.</p>
+
+  <p>Outputs in the <a href="http://checkstyle.sourceforge.net/">CheckStyle</a>
+     format so you can integrate the JSLint results right into your build!
+
+     You should probably use the <a href="https://wiki.jenkins-ci.org/display/JENKINS/Checkstyle+Plugin">Checkstyle plugin</a>
+     to include the jslint results in your Jenkins project,</p>
+     
+  <p>Produced by <a href="http://www.boxuk.com">Box UK</a></p>
+</div>

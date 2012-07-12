@@ -26,8 +26,7 @@ question mark icon for some tips.
 
 The next thing to set is the output file. This is in the checkstyle XML format so we recommend using it with the
 [Jenkins CheckStyle plugin](https://wiki.jenkins-ci.org/display/JENKINS/Checkstyle+Plugin). This will integrate
-the JSLint output into your build output screen, as well as logging raw messages to the build console. Pretty
-handy!
+the JSLint output into your build output screen. Pretty handy!
 
 We recommend clicking "Advanced" and setting the status thresholds to "0" so any jslint failure will fail the build.
 

@@ -32,7 +32,13 @@ handy!
 We recommend clicking "Advanced" and setting the status thresholds to "0" so any jslint failure will fail the build.
 
 You'll probably find that if you use library "foo" you get a lot of "undefined foo" errors at first. Just put a
-"/* globals foo */" kinda statement in the top of your code so jslint knows that "foo" is a global.
+globals statement at the top of your JavaScript file so jslint knows that "foo" is a global:
+
+    /* globals foo, bar */
+    var baz = function() {
+        foo.doSomethingWith(bar);
+    };
+
 
 License
 -------

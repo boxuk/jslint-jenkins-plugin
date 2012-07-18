@@ -3,7 +3,8 @@ JSLint for Jenkins
 
 A Jenkins plugin which bundles JSLint and Rhino and lints your code.
 
-Provided by [Box UK](http://www.boxuk.com/)
+Provided by [Box UK](http://www.boxuk.com/) - see our [Labs Page](http://www.boxuk.com/labs/jslint-jenkins-plugin)
+for more info on this plugin!
 
 For more on why we believe in coding standards, see [Rhodri Pugh's post on coding standards](http://www.boxuk.com/blog/coding-standards)
 

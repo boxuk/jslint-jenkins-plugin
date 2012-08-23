@@ -94,7 +94,10 @@ public class LintRunner implements Callable<Properties, RuntimeException> {
                 ScriptableObject.DONTENUM
             );
 
-            URL res = this.getClass().getResource("JSLint/jslint.js");
+            URL res = res = this.getClass().getResource("JSLintBuilder/jslint.js");
+            if(res == null) {
+                this.getClass().getResource("JSLint/jslint.js");
+            }
             String file = res.toString().replaceAll("file:", "");
 
             try {

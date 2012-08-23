@@ -5592,6 +5592,23 @@ Copyright (c) 2002 Douglas Crockford  (www.JSLint.com) Rhino Edition
 (function (a) {
 
     /**
+     * Lightweight encoding - just enough to make JSLint messages not screw up
+     * the XML output
+     */
+    function liteEncode(raw) {
+
+        raw = raw.replace(/</g, '&lt;');
+        raw = raw.replace(/>/g, '&gt;');
+
+        raw = raw.replace(/&/g, '&amp;');
+
+        raw = raw.replace(/\"/g, '&quot;');
+        raw = raw.replace(/\'/g, '&apos;');
+
+        return raw;
+    }
+
+    /**
      * Lint check the file specified by 'path'.  Return true if the check was
      * ok, false otherwise.  Error info is printed if there's a problem.
      *
@@ -5631,12 +5648,16 @@ Copyright (c) 2002 Douglas Crockford  (www.JSLint.com) Rhino Edition
                         print('Errors found in: ' +path );
                         fileShown = true;
                     }
+
+                    var reason = e.reason;
+                    reason = liteEncode(reason.replace());
+
                     print('  Lint at line ' +e.line+ ' character ' +e.character+ ': ' +e.reason);
                     print('  ' + (e.evidence || '').replace(/^\s*(\S*(\s+\S+)*)\s*$/, "$1"));
                     print('');
 
                     xml += '  <error line="' + e.line + '" column="' + e.character + '" severity="error" message="'
-                        + e.reason
+                        + reason
                         //+ " " + (e.evidence || '').replace(/^\s*(\S*(\s+\S+)*)\s*$/, "$1").entityify().replace(/\"/g, "&quot;")
                         + '" source="jslint"'
                         + "/>\n"

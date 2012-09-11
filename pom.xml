@@ -97,7 +97,7 @@
                     </goals>
                 </execution>
             </executions>
-        </plugin>
+        </plugin>git
     </plugins>
   </build>
 

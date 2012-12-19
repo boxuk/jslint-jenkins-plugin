@@ -50,13 +50,17 @@ public class LintRunner implements Callable<Properties, RuntimeException> {
         final BuildListener listener,
         final String includePattern,
         final String excludePattern,
-        final String logfile
+        final String logfile,
+        final String arguments
     ) throws IOException, InterruptedException {
         this.listener = listener;
 
         final FilePath workspaceDir = build.getWorkspace();
 
         args.add("-DxmlOutput=" + workspaceDir.toString() + "/" + logfile);
+        if(arguments.length() > 1) {
+            args.add(arguments);
+        }
 
         FilePath[] files = workspaceDir.list(
             includePattern,

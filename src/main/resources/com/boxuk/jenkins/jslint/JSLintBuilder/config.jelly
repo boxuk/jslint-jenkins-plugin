@@ -13,4 +13,8 @@
   <f:entry title="Log file" field="logfile">
     <f:textbox name="jslint.logfile" />
   </f:entry>
+  
+  <f:entry title="Arguments" field="arguments">
+    <f:textbox name="jslint.arguments" />
+  </f:entry>
 </j:jelly>

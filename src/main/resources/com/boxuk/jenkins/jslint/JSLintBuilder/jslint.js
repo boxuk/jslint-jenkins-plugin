@@ -5616,20 +5616,8 @@ Copyright (c) 2002 Douglas Crockford  (www.JSLint.com) Rhino Edition
      *
      * @return boolean
      */
-    function lintFile( path ) {
+    function lintFile( path, options ) {
 
-        var options = {
-            bitwise: true, eqeqeq: false, immed: false,
-            // TODO lots of this can be more stringent - GD.
-            newcap: false, nomen: false, onevar: false, plusplus: false,
-            regexp: false, rhino: true, undef: true, white: false,
-            forin: true, sub: true, browser: true, laxbreak: true,
-            predef: [
-                'Ext', 'Amaxus', 'jQuery', 'window', '$', 'ActiveXObject', 'WireIt',
-                'desktopComponentConstructor', 'CodeMirror', 'ControlManager', 'WindowManager', 'tinymce',
-                'Strophe', 'Persist', '$iq', '$pres', '$msg', 'SWFObject'
-            ]
-        };
 
         var input = readFile( path );
 
@@ -5689,6 +5677,20 @@ Copyright (c) 2002 Douglas Crockford  (www.JSLint.com) Rhino Edition
     var inputOptions = {
         xmlOutput: false
     };
+    var defaultOptions = {
+            bitwise: true, eqeqeq: false, immed: false,
+            // TODO lots of this can be more stringent - GD.
+            newcap: false, nomen: false, onevar: false, plusplus: false,
+            regexp: false, rhino: true, undef: true, white: false,
+            forin: true, sub: true, browser: true, laxbreak: true,
+            predef: [
+                'Ext', 'Amaxus', 'jQuery', 'window', '$', 'ActiveXObject', 'WireIt',
+                'desktopComponentConstructor', 'CodeMirror', 'ControlManager', 'WindowManager', 'tinymce',
+                'Strophe', 'Persist', '$iq', '$pres', '$msg', 'SWFObject'
+            ]
+        };
+        
+    var options = defaultOptions;
 
     // Check for arguments
     for ( var i=0; i<args.length; i++ ) {
@@ -5696,11 +5698,20 @@ Copyright (c) 2002 Douglas Crockford  (www.JSLint.com) Rhino Edition
         var thisArg = args[i];
 
         if(thisArg.indexOf('-D') === 0) {
+            var tmp = thisArg.split('=');
             if(thisArg.indexOf('-DxmlOutput') === 0)  {
-                var tmp = thisArg.split('=');
                 inputOptions.xmlOutput = tmp[1];
+            } else {
+                var key = tmp[0].replace('-D', '');
+                var val = tmp[1];
+                if(val === "false") {
+                    val = false;
+                }else if (val === "true") {
+                    val = true;
+                }
+                options[key] = val;
             }
-        } else if ( !lintFile(thisArg) ) {
+        } else if ( !lintFile(thisArg, options) ) {
             allPassed = false;
         }
     }

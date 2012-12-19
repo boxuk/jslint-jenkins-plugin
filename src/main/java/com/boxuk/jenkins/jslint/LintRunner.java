@@ -58,7 +58,7 @@ public class LintRunner implements Callable<Properties, RuntimeException> {
         final FilePath workspaceDir = build.getWorkspace();
 
         args.add("-DxmlOutput=" + workspaceDir.toString() + "/" + logfile);
-        if(arguments.length() > 1) {
+        if(arguments != null && arguments.length() > 1) {
             args.add(arguments);
         }
 

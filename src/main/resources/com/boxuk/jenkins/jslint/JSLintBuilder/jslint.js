@@ -5596,15 +5596,11 @@ Copyright (c) 2002 Douglas Crockford  (www.JSLint.com) Rhino Edition
      * the XML output
      */
     function liteEncode(raw) {
-
         raw = raw.replace(/</g, '&lt;');
         raw = raw.replace(/>/g, '&gt;');
-
         raw = raw.replace(/&/g, '&amp;');
-
         raw = raw.replace(/\"/g, '&quot;');
         raw = raw.replace(/\'/g, '&apos;');
-
         return raw;
     }
 
@@ -5637,8 +5633,7 @@ Copyright (c) 2002 Douglas Crockford  (www.JSLint.com) Rhino Edition
                         fileShown = true;
                     }
 
-                    var reason = e.reason;
-                    reason = liteEncode(reason.replace());
+                    var reason = liteEncode(e.reason);
 
                     print('  Lint at line ' +e.line+ ' character ' +e.character+ ': ' +e.reason);
                     print('  ' + (e.evidence || '').replace(/^\s*(\S*(\s+\S+)*)\s*$/, "$1"));
@@ -5698,18 +5693,31 @@ Copyright (c) 2002 Douglas Crockford  (www.JSLint.com) Rhino Edition
         var thisArg = args[i];
 
         if(thisArg.indexOf('-D') === 0) {
-            var tmp = thisArg.split('=');
+            var tmp = null;
+            
             if(thisArg.indexOf('-DxmlOutput') === 0)  {
+                tmp = thisArg.split('=');
                 inputOptions.xmlOutput = tmp[1];
             } else {
-                var key = tmp[0].replace('-D', '');
-                var val = tmp[1];
-                if(val === "false") {
-                    val = false;
-                }else if (val === "true") {
-                    val = true;
+                var suppliedArgs = thisArg.split('-D');
+                for(var j = 0; j < suppliedArgs.length; j++) {
+                    if(suppliedArgs[j].length < 4) {
+                        continue;
+                    }
+                    
+                    print("Setting an option " + suppliedArgs[j]);
+                    tmp = suppliedArgs[j].split('=');
+                    
+                    var key = tmp[0];
+                    var val = tmp[1];
+                    if(val === "false") {
+                        val = false;
+                    }else if (val === "true") {
+                        val = true;
+                    }
+                    options[key] = val;
                 }
-                options[key] = val;
+                
             }
         } else if ( !lintFile(thisArg, options) ) {
             allPassed = false;

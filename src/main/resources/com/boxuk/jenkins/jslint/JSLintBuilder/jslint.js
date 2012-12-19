@@ -5712,8 +5712,10 @@ Copyright (c) 2002 Douglas Crockford  (www.JSLint.com) Rhino Edition
                     var val = tmp[1];
                     if(val === "false") {
                         val = false;
-                    }else if (val === "true") {
+                    } else if (val === "true") {
                         val = true;
+                    } else if(val.indexOf(',') > -1) {
+                        val = val.split(',');
                     }
                     options[key] = val;
                 }

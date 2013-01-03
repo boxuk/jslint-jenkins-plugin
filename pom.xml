@@ -17,11 +17,17 @@
 
   <groupId>com.boxuk.jenkins</groupId>
   <artifactId>jslint</artifactId>
-  <version>0.7.3-SNAPSHOT</version>
+  <version>0.7.4-SNAPSHOT</version>
   <packaging>hpi</packaging>
 
   <name>Box UK - JSLint</name>
   <description>Lint JavaScript files using a sensible ruleset - outputs to checkstyle format</description>
+
+  <scm>
+    <connection>scm:git:ssh://github.com/jenkins/jslint-jenkins-plugin</connection>
+    <developerConnection>scm:git:ssh://git@github.com/jenkins/jslint-jenkins-plugin.git</developerConnection>
+    <url>https://github.com/jenkins/jslint-jenkins-plugin</url>
+  </scm>
 
   <repositories>
     <repository>
@@ -29,12 +35,6 @@
       <url>http://repo.jenkins-ci.org/public/</url>
     </repository>
   </repositories>
-
-  <scm>
-    <connection>scm:git:ssh://github.com/boxuk/jslint-jenkins-plugin</connection>
-    <developerConnection>scm:git:ssh://git@github.com/boxuk/jslint-jenkins-plugin.git</developerConnection>
-    <url>https://github.com/boxuk/jslint-jenkins-plugin</url>
-  </scm>
 
   <pluginRepositories>
     <pluginRepository>

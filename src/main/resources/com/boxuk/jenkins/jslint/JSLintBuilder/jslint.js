@@ -5592,6 +5592,19 @@ Copyright (c) 2002 Douglas Crockford  (www.JSLint.com) Rhino Edition
 (function (a) {
 
     /**
+     * Lightweight encoding - just enough to make JSLint messages not screw up
+     * the XML output
+     */
+    function liteEncode(raw) {
+        raw = raw.replace(/</g, '&lt;');
+        raw = raw.replace(/>/g, '&gt;');
+        raw = raw.replace(/&/g, '&amp;');
+        raw = raw.replace(/\"/g, '&quot;');
+        raw = raw.replace(/\'/g, '&apos;');
+        return raw;
+    }
+
+    /**
      * Lint check the file specified by 'path'.  Return true if the check was
      * ok, false otherwise.  Error info is printed if there's a problem.
      *
@@ -5599,20 +5612,8 @@ Copyright (c) 2002 Douglas Crockford  (www.JSLint.com) Rhino Edition
      *
      * @return boolean
      */
-    function lintFile( path ) {
+    function lintFile( path, options ) {
 
-        var options = {
-            bitwise: true, eqeqeq: false, immed: false,
-            // TODO lots of this can be more stringent - GD.
-            newcap: false, nomen: false, onevar: false, plusplus: false,
-            regexp: false, rhino: true, undef: true, white: false,
-            forin: true, sub: true, browser: true, laxbreak: true,
-            predef: [
-                'Ext', 'Amaxus', 'jQuery', 'window', '$', 'ActiveXObject', 'WireIt',
-                'desktopComponentConstructor', 'CodeMirror', 'ControlManager', 'WindowManager', 'tinymce',
-                'Strophe', 'Persist', '$iq', '$pres', '$msg', 'SWFObject'
-            ]
-        };
 
         var input = readFile( path );
 
@@ -5631,12 +5632,15 @@ Copyright (c) 2002 Douglas Crockford  (www.JSLint.com) Rhino Edition
                         print('Errors found in: ' +path );
                         fileShown = true;
                     }
+
+                    var reason = liteEncode(e.reason);
+
                     print('  Lint at line ' +e.line+ ' character ' +e.character+ ': ' +e.reason);
                     print('  ' + (e.evidence || '').replace(/^\s*(\S*(\s+\S+)*)\s*$/, "$1"));
                     print('');
 
                     xml += '  <error line="' + e.line + '" column="' + e.character + '" severity="error" message="'
-                        + e.reason
+                        + reason
                         //+ " " + (e.evidence || '').replace(/^\s*(\S*(\s+\S+)*)\s*$/, "$1").entityify().replace(/\"/g, "&quot;")
                         + '" source="jslint"'
                         + "/>\n"
@@ -5668,6 +5672,20 @@ Copyright (c) 2002 Douglas Crockford  (www.JSLint.com) Rhino Edition
     var inputOptions = {
         xmlOutput: false
     };
+    var defaultOptions = {
+            bitwise: true, eqeqeq: false, immed: false,
+            // TODO lots of this can be more stringent - GD.
+            newcap: false, nomen: false, onevar: false, plusplus: false,
+            regexp: false, rhino: true, undef: true, white: false,
+            forin: true, sub: true, browser: true, laxbreak: true,
+            predef: [
+                'Ext', 'Amaxus', 'jQuery', 'window', '$', 'ActiveXObject', 'WireIt',
+                'desktopComponentConstructor', 'CodeMirror', 'ControlManager', 'WindowManager', 'tinymce',
+                'Strophe', 'Persist', '$iq', '$pres', '$msg', 'SWFObject'
+            ]
+        };
+        
+    var options = defaultOptions;
 
     // Check for arguments
     for ( var i=0; i<args.length; i++ ) {
@@ -5675,11 +5693,35 @@ Copyright (c) 2002 Douglas Crockford  (www.JSLint.com) Rhino Edition
         var thisArg = args[i];
 
         if(thisArg.indexOf('-D') === 0) {
+            var tmp = null;
+            
             if(thisArg.indexOf('-DxmlOutput') === 0)  {
-                var tmp = thisArg.split('=');
+                tmp = thisArg.split('=');
                 inputOptions.xmlOutput = tmp[1];
+            } else {
+                var suppliedArgs = thisArg.split('-D');
+                for(var j = 0; j < suppliedArgs.length; j++) {
+                    if(suppliedArgs[j].length < 4) {
+                        continue;
+                    }
+                    
+                    print("Setting an option " + suppliedArgs[j]);
+                    tmp = suppliedArgs[j].split('=');
+                    
+                    var key = tmp[0];
+                    var val = tmp[1];
+                    if(val === "false") {
+                        val = false;
+                    } else if (val === "true") {
+                        val = true;
+                    } else if(val.indexOf(',') > -1) {
+                        val = val.split(',');
+                    }
+                    options[key] = val;
+                }
+                
             }
-        } else if ( !lintFile(thisArg) ) {
+        } else if ( !lintFile(thisArg, options) ) {
             allPassed = false;
         }
     }

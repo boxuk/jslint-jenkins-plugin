@@ -38,6 +38,11 @@ public class JSLintBuilder extends Builder {
      * Location to log to - e.g. target/jslint.xml.
      */
     private final String logfile;
+    
+    /**
+     * User entered arguments
+     */
+    private final String arguments;
 
     /**
      * Fields in config.jelly must match the parameter names in the
@@ -51,11 +56,13 @@ public class JSLintBuilder extends Builder {
     public JSLintBuilder(
         final String includePattern,
         final String excludePattern,
-        final String logfile
+        final String logfile,
+        final String arguments
     ) {
         this.includePattern = includePattern;
         this.excludePattern = excludePattern;
         this.logfile = logfile;
+        this.arguments = arguments;
     }
 
     /**
@@ -77,6 +84,13 @@ public class JSLintBuilder extends Builder {
      */
     public final String getLogfile() {
         return logfile;
+    }
+    
+    /**
+     * @return User arguments
+     */
+    public final String getArguments() {
+        return arguments;
     }
 
     /**
@@ -105,7 +119,8 @@ public class JSLintBuilder extends Builder {
                 listener,
                 includePattern,
                 excludePattern,
-                logfile
+                logfile,
+                arguments
             )
         );
 

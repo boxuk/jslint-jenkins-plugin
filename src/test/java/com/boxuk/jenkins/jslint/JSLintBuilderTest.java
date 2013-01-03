@@ -25,7 +25,7 @@ public class JSLintBuilderTest extends HudsonTestCase {
 
     public void testConfigurationOptionsCanBeSet() throws Exception {
         FreeStyleProject project = createFreeStyleProject();
-        JSLintBuilder builder = new JSLintBuilder("Default", "build.xml", "install");
+        JSLintBuilder builder = new JSLintBuilder("Default", "build.xml", "install", "-Dbrowser=true");
         project.getBuildersList().add(builder);
 
         HtmlForm form = webClient.goTo(project.getUrl() + "/configure").getFormByName("config");
@@ -46,5 +46,6 @@ public class JSLintBuilderTest extends HudsonTestCase {
         assertEquals("lib/**/*.js", builder2.getIncludePattern());
         assertEquals("lib/**/foobar.js", builder2.getExcludePattern());
         assertEquals("jslint-output.xml", builder2.getLogfile());
+        assertEquals("-Dbrowser=true", builder2.getArguments());
     }
 }

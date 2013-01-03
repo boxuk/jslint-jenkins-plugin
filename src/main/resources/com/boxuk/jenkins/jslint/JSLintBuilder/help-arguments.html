@@ -1,0 +1,32 @@
+<div>
+    <p>The arguments to pass to JSLint. You can use <a href="http://www.jslint.com/lint.html#options" target="_BLANK">any arguments that JSLint supports</a>! Be sure, though, to prefix each argument with -D</p>
+    
+    <p>
+        <strong>Example:</strong> -Dadsafe=true, -Dcontinue=true
+        <br/><i>This would activate adsafe and continue</i>
+    </p>
+    
+    <p>
+        <strong>Example:</strong> -Dpredef=foo,bar,baz
+        <br/><i>This would be like having /*global foo,bar,baz*/ at the top of every JavaScript file JSLint runs on.</i>
+    </p>
+    
+    <p>
+        <strong>Example:</strong> -Dpredef=foo,bar,baz, -Dmaxlen=80
+        <br/><i>This would be like having /*global foo,bar,baz*/ at the top of every JavaScript file JSLint runs on. It also sets the maximum length of a line to 80 chars.</i>
+    </p>
+    
+    <p>The default options we use are:</p>
+    
+    <code class="javascript">
+        var defaultOptions = {
+            bitwise: true, eqeqeq: false, immed: false,
+            newcap: false, nomen: false, onevar: false, plusplus: false,
+            regexp: false, rhino: true, undef: true, white: false,
+            forin: true, sub: true, browser: true, laxbreak: true,
+            predef: [
+                'Ext', 'jQuery', 'window', '$', 'ActiveXObject', 'SWFObject'
+            ]
+        };
+    </code>
+</div>

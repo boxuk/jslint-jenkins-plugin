@@ -50,13 +50,17 @@ public class LintRunner implements Callable<Properties, RuntimeException> {
         final BuildListener listener,
         final String includePattern,
         final String excludePattern,
-        final String logfile
+        final String logfile,
+        final String arguments
     ) throws IOException, InterruptedException {
         this.listener = listener;
 
         final FilePath workspaceDir = build.getWorkspace();
 
         args.add("-DxmlOutput=" + workspaceDir.toString() + "/" + logfile);
+        if(arguments != null && arguments.length() > 1) {
+            args.add(arguments);
+        }
 
         FilePath[] files = workspaceDir.list(
             includePattern,
@@ -94,7 +98,10 @@ public class LintRunner implements Callable<Properties, RuntimeException> {
                 ScriptableObject.DONTENUM
             );
 
-            URL res = this.getClass().getResource("JSLint/jslint.js");
+            URL res = res = this.getClass().getResource("JSLintBuilder/jslint.js");
+            if(res == null) {
+                this.getClass().getResource("JSLint/jslint.js");
+            }
             String file = res.toString().replaceAll("file:", "");
 
             try {

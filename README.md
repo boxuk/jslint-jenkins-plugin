@@ -34,11 +34,12 @@ We recommend clicking "Advanced" and setting the status thresholds to "0" so any
 You'll probably find that if you use library "foo" you get a lot of "undefined foo" errors at first. Just put a
 globals statement at the top of your JavaScript file so jslint knows that "foo" is a global:
 
-    /* globals foo, bar */
+    /*globals foo, bar*/
     var baz = function() {
         foo.doSomethingWith(bar);
     };
 
+Please note: you must NOT have a space between "*" and "globals", otherwise it won't work
 
 License
 -------

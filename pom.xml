@@ -6,9 +6,18 @@
     <version>1.474</version><!-- which version of Jenkins is this plugin built against? -->
   </parent>
 
+  <developers>
+    <developer>
+      <id>gavd</id>
+      <name>Gavin Davies</name>
+      <email>gavin.davies@boxuk.com</email>
+    </developer>
+  </developers>
+  <url>https://wiki.jenkins-ci.org/display/JENKINS/JSLint+plugin</url>
+
   <groupId>com.boxuk.jenkins</groupId>
   <artifactId>jslint</artifactId>
-  <version>0.6.7</version>
+  <version>0.7.3-SNAPSHOT</version>
   <packaging>hpi</packaging>
 
   <name>Box UK - JSLint</name>
@@ -20,6 +29,12 @@
       <url>http://repo.jenkins-ci.org/public/</url>
     </repository>
   </repositories>
+
+  <scm>
+    <connection>scm:git:ssh://github.com/boxuk/jslint-jenkins-plugin</connection>
+    <developerConnection>scm:git:ssh://git@github.com/boxuk/jslint-jenkins-plugin.git</developerConnection>
+    <url>https://github.com/boxuk/jslint-jenkins-plugin</url>
+  </scm>
 
   <pluginRepositories>
     <pluginRepository>
@@ -79,32 +94,29 @@
           </rulesets>
         </configuration>
       </plugin>
+
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>cobertura-maven-plugin</artifactId>
+            <version>2.2</version>
+            <configuration>
+                <formats>
+                    <format>xml</format>
+                </formats>
+            </configuration>
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>cobertura</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
     </plugins>
   </build>
 
   <properties>
     <targetJdk>1.6</targetJdk>
   </properties>
-
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-pmd-plugin</artifactId>
-        <version>2.7.1</version>
-        <configuration>
-            <verbose>true</verbose>
-          <rulesets>
-            <ruleset>/rulesets/basic.xml</ruleset>
-            <ruleset>/rulesets/braces.xml</ruleset>
-            <ruleset>/rulesets/codesize.xml</ruleset>
-            <ruleset>/rulesets/design.xml</ruleset>
-            <ruleset>/rulesets/imports.xml</ruleset>
-            <ruleset>/rulesets/naming.xml</ruleset>
-            <ruleset>/rulesets/unusedcode.xml</ruleset>
-          </rulesets>
-        </configuration>
-      </plugin>
-    </plugins>
-  </reporting>
 </project>

@@ -6,9 +6,18 @@
     <version>1.474</version><!-- which version of Jenkins is this plugin built against? -->
   </parent>
 
+  <developers>
+    <developer>
+      <id>gavd</id>
+      <name>Gavin Davies</name>
+      <email>gavin.davies@boxuk.com</email>
+    </developer>
+  </developers>
+  <url>https://wiki.jenkins-ci.org/display/JENKINS/JSLint+plugin</url>
+
   <groupId>com.boxuk.jenkins</groupId>
   <artifactId>jslint</artifactId>
-  <version>0.7.2-SNAPSHOT</version>
+  <version>0.7.3-SNAPSHOT</version>
   <packaging>hpi</packaging>
 
   <name>Box UK - JSLint</name>
@@ -20,6 +29,12 @@
       <url>http://repo.jenkins-ci.org/public/</url>
     </repository>
   </repositories>
+
+  <scm>
+    <connection>scm:git:ssh://github.com/boxuk/jslint-jenkins-plugin</connection>
+    <developerConnection>scm:git:ssh://git@github.com/boxuk/jslint-jenkins-plugin.git</developerConnection>
+    <url>https://github.com/boxuk/jslint-jenkins-plugin</url>
+  </scm>
 
   <pluginRepositories>
     <pluginRepository>

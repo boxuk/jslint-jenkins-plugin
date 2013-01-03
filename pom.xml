@@ -24,9 +24,8 @@
   <description>Lint JavaScript files using a sensible ruleset - outputs to checkstyle format</description>
 
   <scm>
-    <connection>scm:git:ssh://github.com/boxuk/jslint-jenkins-plugin/tags/jslint-0.7.4</connection>
-    <developerConnection>scm:git:ssh://git@github.com/boxuk/jslint-jenkins-plugin.git/tags/jslint-0.7.4</developerConnection>
-    <url>https://github.com/boxuk/jslint-jenkins-plugin/tags/jslint-0.7.4</url>
+    <connection>scm:git:git://github.com/jenkinsci/${project.artifactId}-jenkins-plugin.git</connection>
+    <developerConnection>scm:git:git@github.com:jenkinsci/${project.artifactId}-jenkins-plugin.git</developerConnection>
   </scm>
 
   <repositories>
@@ -64,6 +63,15 @@
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.jenkins-ci.tools</groupId>
+        <artifactId>maven-hpi-plugin</artifactId>
+        <version>1.76</version>
+        <configuration>
+          <dependencyResolution>compile</dependencyResolution>
+        </configuration>
+      </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>

@@ -24,7 +24,7 @@
   <description>Lint JavaScript files using a sensible ruleset - outputs to checkstyle format</description>
 
   <scm>
-    <connnection>scm:git:git://github.com/jenkinsci/${project.artifactId}-jenkins-plugin.git</connection>
+    <connection>scm:git:git://github.com/jenkinsci/${project.artifactId}-jenkins-plugin.git</connection>
     <developerConnection>scm:git:git@github.com:jenkinsci/${project.artifactId}-jenkins-plugin.git</developerConnection>
   </scm>
 

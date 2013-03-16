@@ -102,7 +102,7 @@ public class LintRunner implements Callable<Properties, RuntimeException> {
             if(res == null) {
                 this.getClass().getResource("JSLint/jslint.js");
             }
-            String file = res.toString().replaceAll("file:", "");
+            String file = java.net.URLDecoder.decode(res.toString());
 
             try {
                 context.evaluateReader(

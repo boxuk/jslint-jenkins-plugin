@@ -44,7 +44,23 @@ Please note: you must NOT have a space between "*" and "globals", otherwise it w
 Deploying via Maven
 -------------------
 
-    mvn release:clean release:prepare release:perform deploy
+You need permissions to do this. This serves as an aide memoire for the maintainer!
+
+First, commit everything that you've done. Then, let Maven manage it all.
+
+    mvn release:clean
+    mvn release:prepare
+    mvn release:perform
+    mvn deploy
+
+Make sure the Jenkins Github repo is up to date with the Box UK one.
+
+[Here are the instructions for Jenkins hosted plugins](https://wiki.jenkins-ci.org/display/JENKINS/Hosting+Plugins)
+
+The package should show up in http://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/jslint/
+
+http://mirrors.karan.org/jenkins/updates/update-center.json Takes about 6 hours to update so check back there later!
+
 
 License
 -------

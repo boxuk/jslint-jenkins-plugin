@@ -1,7 +1,7 @@
 JSLint for Jenkins
 ==================
 
-A Jenkins plugin which bundles JSLint and Rhino and lints your code.
+A Jenkins plugin which bundles JSLint and Rhino and lints your code. [Official plugin page](https://wiki.jenkins-ci.org/display/JENKINS/JSLint+plugin).
 
 Provided by [Box UK](http://www.boxuk.com/) - see our [Labs Page](http://www.boxuk.com/labs/jslint-jenkins-plugin)
 for more info on this plugin!
@@ -40,6 +40,11 @@ globals statement at the top of your JavaScript file so jslint knows that "foo" 
     };
 
 Please note: you must NOT have a space between "*" and "globals", otherwise it won't work
+
+Deploying via Maven
+-------------------
+
+    mvn release:clean release:prepare release:perform deploy
 
 License
 -------

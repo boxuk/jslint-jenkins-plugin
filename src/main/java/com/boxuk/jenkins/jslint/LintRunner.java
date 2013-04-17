@@ -7,6 +7,7 @@ import hudson.remoting.Callable;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -102,7 +103,14 @@ public class LintRunner implements Callable<Properties, RuntimeException> {
             if(res == null) {
                 this.getClass().getResource("JSLint/jslint.js");
             }
-            String file = java.net.URLDecoder.decode(res.toString());
+
+            String file;
+            try {
+                file = URLDecoder.decode(res.toString(), "UTF-8");
+            } catch(java.io.UnsupportedEncodingException ex) {
+                file = URLDecoder.decode(res.toString());
+                listener.getLogger().println("[JSLint] Unable to decode using UTF-8: " + ex.toString());
+            }
 
             try {
                 context.evaluateReader(

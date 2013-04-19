@@ -99,7 +99,7 @@ public class LintRunner implements Callable<Properties, RuntimeException> {
                 ScriptableObject.DONTENUM
             );
 
-            URL res = res = this.getClass().getResource("JSLintBuilder/jslint.js");
+            URL res = this.getClass().getResource("JSLintBuilder/jslint.js");
             if(res == null) {
                 this.getClass().getResource("JSLint/jslint.js");
             }
@@ -111,6 +111,8 @@ public class LintRunner implements Callable<Properties, RuntimeException> {
                 file = URLDecoder.decode(res.toString());
                 listener.getLogger().println("[JSLint] Unable to decode using UTF-8: " + ex.toString());
             }
+            // Breaks on Windows without this
+            file = file.replaceAll("file:", "");
 
             try {
                 context.evaluateReader(

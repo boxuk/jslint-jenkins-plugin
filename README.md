@@ -55,11 +55,12 @@ First, commit everything that you've done. Then, let Maven manage it all.
 
 Make sure the Jenkins Github repo is up to date with the Box UK one.
 
-[Here are the instructions for Jenkins hosted plugins](https://wiki.jenkins-ci.org/display/JENKINS/Hosting+Plugins)
+[Here are the instructions for Jenkins hosted plugins](https://wiki.jenkins-ci.org/display/JENKINS/Hosting+Plugins). Make sure you have set up ~/.m2/settings.xml with your credentials as per the instructions.
 
 The package should show up in http://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/jslint/
 
 http://mirrors.karan.org/jenkins/updates/update-center.json Takes about 6 hours to update so check back there later!
+
 
 
 License

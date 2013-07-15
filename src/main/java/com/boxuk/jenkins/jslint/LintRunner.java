@@ -4,9 +4,7 @@ import hudson.FilePath;
 import hudson.model.AbstractBuild;
 import hudson.model.BuildListener;
 import hudson.remoting.Callable;
-import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.net.URLDecoder;
 import java.net.URL;
 import java.util.ArrayList;
@@ -15,6 +13,10 @@ import java.util.Properties;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
+import jenkins.model.Jenkins;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * Class that actually runs the linting. Because it is callable, it is safe
@@ -108,20 +110,30 @@ public class LintRunner implements Callable<Properties, RuntimeException> {
             try {
                 file = URLDecoder.decode(res.toString(), "UTF-8");
             } catch(java.io.UnsupportedEncodingException ex) {
-                file = URLDecoder.decode(res.toString());
                 listener.getLogger().println("[JSLint] Unable to decode using UTF-8: " + ex.toString());
+                file = URLDecoder.decode(res.toString());
             }
             // Breaks on Windows without this
-            file = file.replaceAll("file:", "");
+            // BUT!! breaks on EVERYTHING with it since circa Jenkins 1.519
+            // file = file.replaceAll("file:", "");
+            listener.getLogger().println("[JSLint] JSLint path is " + file);
 
             try {
+                URL url = new URL(file);
+                InputStream inputStream = url.openStream();
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+
                 context.evaluateReader(
                     scope,
-                    new FileReader(new File(file)), "jslint.js", 0, null
+                    inputStreamReader,
+                    "jslint.js",
+                    0,
+                    null
                 );
-            } catch (IOException ex) {
-                listener.getLogger().println("[JSLint] IO Error " + ex.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+
         } finally {
             // Exit from the context.
             Context.exit();
